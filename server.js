@@ -7,8 +7,10 @@ require('dotenv').config()
 app.use(cors())
 
 // these will be in a .env file
-const username = process.env.USERNAME
-const password = process.env.PASSWORD
+// const username = process.env.USERNAME
+// const password = process.env.PASSWORD
+const username = "cameronmdeans"
+const password = "AmazonWebScraper1!"
 
 app.get('/deals', async(req, res) => {
     try{
