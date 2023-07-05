@@ -6,7 +6,7 @@ require('dotenv').config()
 
 app.use(cors())
 
-// these will be hidden in a .env file
+// these will be in a .env file
 const username = process.env.USERNAME
 const password = process.env.PASSWORD
 
