@@ -2,14 +2,13 @@ const PORT = 8000
 const express = require('express')
 const cors = require('cors')
 const app = express()
+require('dotenv').config()
 
 app.use(cors())
 
-// these will be hidden in a .env file at the end
-// ????????????? >>>> PH when move to public repo
-const username = "cameronmdeans"
-// ????????????? >>>> PH when move to public repo
-const password = "SandPointFN1!"
+// these will be hidden in a .env file
+const username = process.env.USERNAME
+const password = process.env.PASSWORD
 
 app.get('/deals', async(req, res) => {
     try{
