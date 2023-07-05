@@ -5,6 +5,7 @@ const app = express()
 
 app.use(cors())
 
+// these will be hidden in a .env file at the end
 // ????????????? >>>> PH when move to public repo
 const username = "cameronmdeans"
 // ????????????? >>>> PH when move to public repo
@@ -27,7 +28,22 @@ app.get('/deals', async(req, res) => {
                 "Authorization": "Basic " + Buffer.from(`${username}:${password}`).toString("base64")
             }
         }) 
-        console.log(await response.json())
+        const data = await response.json()
+
+        // get the data for the first object
+        const results = data.results[0].content.results.organic
+        
+        // filter through array prices and show ones that have a price_strikethrough deal applied to it
+        const filteredDeals = results.filter(deal => deal.price_strikethrough)
+
+        // sort highest to lowest and remove the original price then divide by price and multiply by 100 to get the percentage
+        // compare to b.price_strikethrough
+        const sortedByBestDeal = filteredDeals.sort((b, a) => 
+            ((a.price_strikethrough - a.price) / a.price_strikethrough * 100) - 
+            ((b.price_strikethrough - b.price) / b.price_strikethrough * 100)
+        )
+        // display the response from sorted by best deal 
+        res.send(sortedByBestDeal)
     } catch(err) {
         console.error(err)
     }
